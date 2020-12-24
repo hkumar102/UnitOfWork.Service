@@ -3,7 +3,7 @@
 UnitOfWork is a Dot Net Core Library to implemented for unit of work patterns, Query Handler Patter, repository and direct MS SQL queries using dapper.
 
 ### Note**
-Keeping this repository private for now. If you you all think its something which you want to use then i will make it public.
+Keeping source code private for now. If you you all think its something which you want to use then i will make it public.
 
 ## Installation
 
