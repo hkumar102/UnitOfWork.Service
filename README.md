@@ -24,7 +24,7 @@ public void ConfigureServices(IServiceCollection services)
 {
     var connectionString = "Your connection string";
 
-    // TKey :- Primary column type for your identity tables, ex:- int,string,Guid. It is used for Audit purporse. In Future will create extension to configure audit settings.
+    // TKey :- Primary column type for your identity tables, ex:- int,string,Guid. It is used for Audit purporse. In Future will create extension to configure without audit settings.
     //YourDbContext :- DbContext.
     //SqlScriptContext:- This is the default ISqlScriptContext you can override and modify according to your need.
     services.RegisterUnitOfWork<TKey, YourDbContext, SqlScriptContext>(connectionString);
