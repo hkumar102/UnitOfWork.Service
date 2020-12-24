@@ -31,11 +31,14 @@ public void ConfigureServices(IServiceCollection services)
 
 
     //Register Unit Of Work with Query Handler Pattern
-    // TKey :- Primary column type for your identity tables, ex:- int,string,Guid. It is used for Audit purporse. In Future will create extension to configure audit settings.
+    // TKey :- Primary column type for your identity tables, ex:- int,string,Guid. It is used for Audit purporse. 
+    // In Future will create extension to configure audit settings.
     //YourDbContext :- DbContext.
     //SqlScriptContext:- This is the default ISqlScriptContext you can override and modify according to your need.
-    //TQueryHandlerAssemblyFromType :- Assembly in which all your IQueryHandler Defined so that it can add all the Handlers into DI pipeline automatically
-    services.RegisterUnitOfWork<TKey, YourDbContext, SqlScriptContext, TQueryHandlerAssemblyFromType>(connectionString);
+    //TQueryHandlerAssemblyFromType :- Assembly in which all your IQueryHandler Defined so that it can add all the 
+    //Handlers into DI pipeline automatically
+    services
+        .RegisterUnitOfWork<TKey, YourDbContext, SqlScriptContext, TQueryHandlerAssemblyFromType>(connectionString);
 }
 
 public class TestController: Controller{
@@ -88,14 +91,16 @@ public class TestController: Controller{
         sqlQuery = @"SELECT * FROM Items";
         IEnumerable<Item> items = await _unitOfWork.ExecuteSqlAsync<Item>(sqlQuery, null);
 
-        //Executing SP or Script for which will return multiple datasets of different objects, It will return the dataset in the same order QueryItem Passed
+        //Executing SP or Script for which will return multiple datasets of different objects, 
+        //It will return the dataset in the same order QueryItem Passed.
         sqlQuery = @"SELECT * FROM Items WHERE ItemId = @ItemId; SELECT * FROM ItemType WHERE ItemTypeId = @ItemTypeId";
         var querymapItems = new List<QueryMapItem>()
         {
             new QueryMapItem(typeof(Item), DataRetriveTypeEnum.List, "Item"),
             new QueryMapItem(typeof(ItemType), DataRetriveTypeEnum.List, "ItemType")
         };
-        IDictionary<string, object> multipleDataSet = await _unitOfWork.ExecuteSqlAsync(sqlQuery, new {ItemId = 1, ItemTypeId = 1}, querymapItems);
+        IDictionary<string, object> multipleDataSet = 
+            await _unitOfWork.ExecuteSqlAsync(sqlQuery, new {ItemId = 1, ItemTypeId = 1}, querymapItems);
         var menuTypes = multipleDataSet["Item"].Convert<IEnumerable<Item>>();
         var menus = multipleDataSet["ItemType"].Convert<IEnumerable<ItemType>>();
     }
@@ -129,14 +134,16 @@ public class TestController: Controller{
         sqlQuery = @"SELECT * FROM Items";
         IEnumerable<Item> items = await _sqlContext.SelectAsync<Item>(sqlQuery, null);
 
-        //Executing SP or Script for which will return multiple datasets of different objects, It will return the dataset in the same order QueryItem Passed
+        //Executing SP or Script for which will return multiple datasets of different objects.
+        //It will return the dataset in the same order QueryItem Passed
         sqlQuery = @"SELECT * FROM Items WHERE ItemId = @ItemId; SELECT * FROM ItemType WHERE ItemTypeId = @ItemTypeId";
         var querymapItems = new List<QueryMapItem>()
         {
             new QueryMapItem(typeof(Item), DataRetriveTypeEnum.List, "Item"),
             new QueryMapItem(typeof(ItemType), DataRetriveTypeEnum.List, "ItemType")
         };
-        IDictionary<string, object> multipleDataSet = await _sqlContext.ExecuteQueryMultipleAsync(sqlQuery, new {ItemId = 1, ItemTypeId = 1}, querymapItems);
+        IDictionary<string, object> multipleDataSet = 
+                await _sqlContext.ExecuteQueryMultipleAsync(sqlQuery, new {ItemId = 1, ItemTypeId = 1}, querymapItems);
         var items = multipleDataSet["Item"].Convert<IEnumerable<Item>>();
         var itemTypes = multipleDataSet["ItemType"].Convert<IEnumerable<ItemType>>();
     }
