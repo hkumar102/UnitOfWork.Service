@@ -10,7 +10,7 @@ Keeping source code private for now. If you you all think its something which yo
 Use [Nuget](https://www.nuget.org/packages/UnitOfWork.Service) the package manager to install UnitOfWork.
 
 ```bash
-PM > Install-Package UnitOfWork.Service
+PM > Install-Package HKumar.UnitOfWork
 ```
 
 ## Usage
