@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Version>1.1.2</Version>
+    <Authors>Hemant Kumar</Authors>
+    <Description>UnitOfWork is a Dot Net Core Library to implemented for unit of work patterns, Query Handler Patter, repository and direct MS SQL queries using dapper.</Description>
+    <WebPage>https://github.com/hunnysharma102/UnitOfWork.Service/</WebPage>
+    <RepositoryUrl>https://github.com/hunnysharma102/UnitOfWork.Service/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+</Project>
